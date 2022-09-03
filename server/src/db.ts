@@ -11,6 +11,7 @@ export function getDatabase() {
 
     db.forEach((driver) => {
       driver.place = Number(places.shift());
+      driver.imgUrl = `/static/${driver.code.toLowerCase()}.png`;
     });
   }
 

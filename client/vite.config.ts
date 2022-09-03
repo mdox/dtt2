@@ -9,6 +9,7 @@ export default defineConfig({
         target: "http://localhost:5000",
         rewrite: (path) => path.substring(4),
       },
+      "/static": "http://localhost:5000",
     },
   },
   plugins: [react()],
