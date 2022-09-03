@@ -1,0 +1,21 @@
+{
+  "name": "digitalthinkgers-1",
+  "version": "1.0.0",
+  "scripts": {
+    "client:install": "npm --prefix client install",
+    "server:install": "npm --prefix server install",
+    "client:build": "npm --prefix client run build",
+    "server:build": "npm --prefix server run build",
+    "client:dev": "npm --prefix client run dev",
+    "server:dev": "npm --prefix server run dev",
+    "client:serve": "npm --prefix client run serve",
+    "server:serve": "npm --prefix server run serve",
+    "install": "npm run client:install && npm run server:install",
+    "build": "npm run client:build && npm run server:build",
+    "dev": "concurrently 'npm run server:dev' 'npm run client:dev'",
+    "serve": "concurrently 'npm run server:serve' 'npm run client:serve'"
+  },
+  "dependencies": {
+    "concurrently": "^7.3.0"
+  }
+}
