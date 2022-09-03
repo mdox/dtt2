@@ -24,7 +24,16 @@ export function DriverCard(props: DriverCardProps) {
         </span>
       </div>
       <div className="flex flex-col gap-2 grow">
-        <h2>{memoFullname}</h2>
+        <div className="flex justify-between items-start">
+          <h2>{memoFullname}</h2>
+          <button
+            type="button"
+            disabled={memoPlace === 1}
+            className="flex items-center justify-center px-3 py-2 bg-stone-300 disabled:opacity-25"
+          >
+            Overtake
+          </button>
+        </div>
         <p>TEAM: {props.team}</p>
         <p>CODE: {props.code}</p>
       </div>
