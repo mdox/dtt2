@@ -33,7 +33,7 @@ npm run dev
 ### Part 1 Backend
 
 - [x] GET api/drivers
-- [ ] Randomized places
+- [x] Randomized places
 - [ ] Serve Images by Backend server
 - [ ] POST api/drivers/{driverId}/overtake
 
