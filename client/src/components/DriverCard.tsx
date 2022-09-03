@@ -1,7 +1,9 @@
 import { useMemo } from "react";
 import { Driver } from "../lib/types";
 
-export interface DriverCardProps extends Driver {}
+export interface DriverCardProps extends Driver {
+  onOvertake(driverId: number): void;
+}
 
 export function DriverCard(props: DriverCardProps) {
   // Memos
@@ -13,6 +15,11 @@ export function DriverCard(props: DriverCardProps) {
     () => `${props.firstname} ${props.lastname}`,
     [props.firstname, props.lastname]
   );
+
+  // Events
+  function onOvertake() {
+    props.onOvertake(props.id);
+  }
 
   // Renders
   return (
@@ -30,6 +37,7 @@ export function DriverCard(props: DriverCardProps) {
             type="button"
             disabled={memoPlace === 1}
             className="flex items-center justify-center px-3 py-2 bg-stone-300 disabled:opacity-25"
+            onClick={onOvertake}
           >
             Overtake
           </button>
