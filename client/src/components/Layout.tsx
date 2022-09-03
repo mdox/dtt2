@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
 
 export function Layout(props: PropsWithChildren) {
-  return <div>{props.children}</div>;
+  return <div className="max-w-screen-md mx-auto">{props.children}</div>;
 }
