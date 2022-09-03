@@ -5,8 +5,26 @@ export interface DriverCardProps extends Driver {
   onOvertake(driverId: number): void;
 }
 
+// prettier-ignore
+const teamColors: Record<string, string> = {
+  "Williams"       : "rgba(  0,   0,   0, 0.5)",
+  "Alpine"         : "rgba(255,   0,   0, 0.5)",
+  "Alfa Romeo"     : "rgba(  0, 255,   0, 0.5)",
+  "AlphaTauri"     : "rgba(  0,   0, 255, 0.5)",
+  "Mercedes"       : "rgba(255, 255,   0, 0.5)",
+  "Aston Martin"   : "rgba(  0, 255, 255, 0.5)",
+  "Ferrari"        : "rgba(255,   0, 255, 0.5)",
+  "Haas F1 Team"   : "rgba( 16, 244,   0, 0.5)",
+  "McLaren"        : "rgba(  0,  16, 244, 0.5)",
+  "Red Bull Racing": "rgba(255,   0,  16, 0.5)",
+};
+
 export function DriverCard(props: DriverCardProps) {
   // Memos
+  const memoTeamColor = useMemo(() => {
+    return teamColors[props.team] ?? "000";
+  }, [props.team]);
+
   const memoPlace = useMemo(() => {
     return props.place! + 1;
   }, [props.place]);
@@ -25,7 +43,14 @@ export function DriverCard(props: DriverCardProps) {
   return (
     <div className="flex gap-4 p-2 rounded shadow">
       <div className="relative w-36 h-36 shrink-0">
-        <img src={props.imgUrl} alt={memoFullname} className="rounded shadow" />
+        <img
+          src={props.imgUrl}
+          alt={memoFullname}
+          style={{
+            backgroundColor: memoTeamColor,
+          }}
+          className="rounded shadow"
+        />
         <span className="absolute right-2 bottom-2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow">
           {memoPlace}
         </span>
@@ -42,8 +67,8 @@ export function DriverCard(props: DriverCardProps) {
             Overtake
           </button>
         </div>
-        <p>TEAM: {props.team}</p>
-        <p>CODE: {props.code}</p>
+        <p>{props.team}</p>
+        <p>{props.code}</p>
       </div>
     </div>
   );

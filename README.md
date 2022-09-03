@@ -47,7 +47,7 @@ npm run dev
 - [x] /drivers page
 - [x] Card: name, team, place, code, photo
 - [x] Button for Overtake
-- [ ] Minimal style
+- [x] Minimal style
 
 ## Part 2
 
