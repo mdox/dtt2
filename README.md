@@ -7,6 +7,11 @@
 
 # Usage
 
+Ports:
+
+- Client: 3000 - http://localhost:3000
+- Server: 5000 - http://localhost:5000 (as proxy: http://localhost:3000/api, http://localhost:3000/static)
+
 ## Install
 
 ```sh
