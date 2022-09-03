@@ -10,7 +10,7 @@
     "server:dev": "npm --prefix server run dev",
     "client:serve": "npm --prefix client run serve",
     "server:serve": "npm --prefix server run serve",
-    "init": "npm run client:install && npm run server:install",
+    "init": "npm install && npm run client:install && npm run server:install",
     "build": "npm run client:build && npm run server:build",
     "dev": "concurrently 'npm run server:dev' 'npm run client:dev'",
     "serve": "concurrently 'npm run server:serve' 'npm run client:serve'"
