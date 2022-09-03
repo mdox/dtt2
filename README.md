@@ -45,7 +45,7 @@ npm run dev
 ### Part 1 Frontend
 
 - [x] /drivers page
-- [ ] Card: name, team, place, code, photo
+- [x] Card: name, team, place, code, photo
 - [ ] Button for Overtake
 - [ ] Minimal style
 
