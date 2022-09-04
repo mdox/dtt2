@@ -51,7 +51,7 @@ npm run dev
 
 ## Part 2
 
-- [ ] Flags
+- [x] Flags
 - [ ] Multiple overtake, Drag & Drop
 - [ ] PostgreSQL in Docker
 - [ ] Animations

@@ -57,7 +57,14 @@ export function DriverCard(props: DriverCardProps) {
       </div>
       <div className="flex flex-col gap-2 grow">
         <div className="flex justify-between items-start">
-          <h2>{memoFullname}</h2>
+          <div className="flex items-center gap-2">
+            <img
+              src={`https://countryflagsapi.com/svg/${props.country}`}
+              alt={props.country}
+              className="w-8"
+            />
+            <h2 className="m-0">{memoFullname}</h2>
+          </div>
           <button
             type="button"
             disabled={memoPlace === 1}
