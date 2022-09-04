@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
 import { DriverCard } from "../components/DriverCard";
+import { DriverCardContainer } from "../components/DriverCardContainer";
 import { Driver } from "../lib/types";
 
 export function Drivers() {
@@ -17,6 +18,14 @@ export function Drivers() {
   }, [data]);
 
   // Events
+  async function onTakePlace(takerDriverId: number, holderDriverId: number) {
+    mutate(
+      await fetch(`/api/drivers/${takerDriverId}/takeplace/${holderDriverId}`, {
+        method: "POST",
+      }).then((res) => res.json())
+    );
+  }
+
   async function onOvertake(driverId: number) {
     mutate(
       await fetch(`/api/drivers/${driverId}/overtake`, {
@@ -32,11 +41,16 @@ export function Drivers() {
         <Link to="/">Back to Home please.</Link>
       </p>
 
-      <div className="flex flex-col gap-2">
+      <DriverCardContainer>
         {memoDrivers.map((driver) => (
-          <DriverCard key={driver.id} {...driver} onOvertake={onOvertake} />
+          <DriverCard
+            key={driver.id}
+            {...driver}
+            onOvertake={onOvertake}
+            onTakePlace={onTakePlace}
+          />
         ))}
-      </div>
+      </DriverCardContainer>
     </div>
   );
 }

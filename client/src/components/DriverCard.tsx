@@ -1,9 +1,16 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
+import { useDrag, useDrop } from "react-dnd";
 import { Driver } from "../lib/types";
 
 export interface DriverCardProps extends Driver {
+  onTakePlace(takerDriverId: number, holderDriverId: number): void;
   onOvertake(driverId: number): void;
 }
+
+type DragItem = {
+  id: number;
+  type: string;
+};
 
 // prettier-ignore
 const teamColors: Record<string, string> = {
@@ -20,6 +27,25 @@ const teamColors: Record<string, string> = {
 };
 
 export function DriverCard(props: DriverCardProps) {
+  // Refs
+  const refFrame = useRef<HTMLDivElement>(null);
+
+  // DnD
+  const [, drop] = useDrop<DragItem, void, void>({
+    accept: "Card",
+    drop: (item: DragItem) => {
+      const dragDriverId = item.id;
+      const hoverDriverId = props.id;
+      props.onTakePlace(dragDriverId, hoverDriverId);
+    },
+  });
+  const [, drag] = useDrag({
+    type: "Card",
+    item: () => ({
+      id: props.id,
+    }),
+  });
+
   // Memos
   const memoTeamColor = useMemo(() => {
     return teamColors[props.team] ?? "000";
@@ -39,9 +65,12 @@ export function DriverCard(props: DriverCardProps) {
     props.onOvertake(props.id);
   }
 
+  // Take Effects
+  drag(drop(refFrame));
+
   // Renders
   return (
-    <div className="flex gap-4 p-2 rounded shadow">
+    <div ref={refFrame} className="flex gap-4 p-2 rounded shadow">
       <div className="relative w-36 h-36 shrink-0">
         <img
           src={props.imgUrl}

@@ -52,7 +52,7 @@ npm run dev
 ## Part 2
 
 - [x] Flags
-- [ ] Multiple overtake, Drag & Drop
+- [x] Multiple overtake, Drag & Drop
 - [ ] PostgreSQL in Docker
 - [ ] Animations
 - [ ] Backend Tests in Jest
