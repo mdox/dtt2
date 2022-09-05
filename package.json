@@ -10,6 +10,8 @@
     "server:dev": "npm --prefix server run dev",
     "client:serve": "npm --prefix client run serve",
     "server:serve": "npm --prefix server run serve",
+    "server:db:migrate": "npm --prefix server run db:migrate",
+    "server:db:seed": "npm --prefix server run db:seed",
     "db:start": "cd postgres && docker-compose up --build -d",
     "db:stop": "cd postgres && docker-compose down",
     "init": "npm install && npm run client:install && npm run server:install",
