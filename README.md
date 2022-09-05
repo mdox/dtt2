@@ -15,7 +15,7 @@ Ports:
 ## Install
 
 ```sh
-npm run install
+npm run init
 ```
 
 ## Production
