@@ -1,19 +1,6 @@
-import dbJSON from "../../resources/drivers.json";
-import { Driver } from "./lib/types";
+import knex from "knex";
+import dbConfig from "./knexfile";
 
-let db: Driver[] | undefined = undefined;
+const db = knex(dbConfig);
 
-export function getDatabase() {
-  if (db === undefined) {
-    db = dbJSON;
-
-    const places = Object.keys(db).sort(() => Math.random() - 0.5);
-
-    db.forEach((driver) => {
-      driver.place = Number(places.shift());
-      driver.imgUrl = `/static/${driver.code.toLowerCase()}.png`;
-    });
-  }
-
-  return db;
-}
+export default db;
