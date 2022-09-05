@@ -37,6 +37,12 @@ npm run db:start # For Part 2
 npm run dev
 ```
 
+## Shutdown Database
+
+```sh
+npm run db:stop
+```
+
 # TODO
 
 ## Part 1
@@ -59,6 +65,6 @@ npm run dev
 
 - [x] Flags
 - [x] Multiple overtake, Drag & Drop
-- [ ] PostgreSQL in Docker
+- [x] PostgreSQL in Docker
 - [ ] Animations
 - [ ] Backend Tests in Jest
