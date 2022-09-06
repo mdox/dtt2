@@ -15,6 +15,11 @@
 
 Web Client <-> Server -> Controller -> Service -> DAO -> Database
 
+# Final Branches
+
+- part-1
+- part-2
+
 # Usage
 
 Ports:
