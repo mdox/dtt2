@@ -1,16 +1,11 @@
-import { useMemo, useRef } from "react";
-import { useDrag, useDrop } from "react-dnd";
+import { useMemo } from "react";
+import { Draggable } from "react-beautiful-dnd";
 import { Driver } from "../lib/types";
 
 export interface DriverCardProps extends Driver {
-  onTakePlace(takerDriverId: number, holderDriverId: number): void;
+  index: number;
   onOvertake(driverId: number): void;
 }
-
-type DragItem = {
-  id: number;
-  type: string;
-};
 
 // prettier-ignore
 const teamColors: Record<string, string> = {
@@ -27,26 +22,20 @@ const teamColors: Record<string, string> = {
 };
 
 export function DriverCard(props: DriverCardProps) {
-  // Refs
-  const refFrame = useRef<HTMLDivElement>(null);
-
-  // DnD
-  const [, drop] = useDrop<DragItem, void, void>({
-    accept: "Card",
-    drop: (item: DragItem) => {
-      const dragDriverId = item.id;
-      const hoverDriverId = props.id;
-      props.onTakePlace(dragDriverId, hoverDriverId);
-    },
-  });
-  const [, drag] = useDrag({
-    type: "Card",
-    item: () => ({
-      id: props.id,
-    }),
-  });
-
   // Memos
+  const memoPlaceIconColor = useMemo(() => {
+    switch (props.place) {
+      case 0:
+        return "gold";
+      case 1:
+        return "silver";
+      case 2:
+        return "burlywood";
+      default:
+        return "white";
+    }
+  }, [props.place]);
+
   const memoTeamColor = useMemo(() => {
     return teamColors[props.team] ?? "000";
   }, [props.team]);
@@ -65,47 +54,58 @@ export function DriverCard(props: DriverCardProps) {
     props.onOvertake(props.id);
   }
 
-  // Take Effects
-  drag(drop(refFrame));
-
   // Renders
   return (
-    <div ref={refFrame} className="flex gap-4 p-2 rounded shadow">
-      <div className="relative w-36 h-36 shrink-0">
-        <img
-          src={props.imgUrl}
-          alt={memoFullname}
-          style={{
-            backgroundColor: memoTeamColor,
-          }}
-          className="rounded shadow"
-        />
-        <span className="absolute right-2 bottom-2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow">
-          {memoPlace}
-        </span>
-      </div>
-      <div className="flex flex-col gap-2 grow">
-        <div className="flex justify-between items-start">
-          <div className="flex items-center gap-2">
+    <Draggable draggableId={`${props.id}`} index={props.index}>
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          className="flex gap-4 p-2 rounded shadow bg-stone-100 mb-2"
+        >
+          <div className="relative w-36 h-36 shrink-0">
             <img
-              src={`https://countryflagsapi.com/svg/${props.country}`}
-              alt={props.country}
-              className="w-8"
+              src={props.imgUrl}
+              alt={memoFullname}
+              style={{
+                backgroundColor: memoTeamColor,
+              }}
+              className="rounded shadow"
             />
-            <h2 className="m-0">{memoFullname}</h2>
+            <span
+              style={{
+                backgroundColor: memoPlaceIconColor,
+              }}
+              className="absolute right-2 bottom-2 w-12 h-12 rounded-full flex items-center justify-center shadow"
+            >
+              {memoPlace}
+            </span>
           </div>
-          <button
-            type="button"
-            disabled={memoPlace === 1}
-            className="flex items-center justify-center px-3 py-2 bg-stone-300 disabled:opacity-25"
-            onClick={onOvertake}
-          >
-            Overtake
-          </button>
+          <div className="flex flex-col gap-2 grow">
+            <div className="flex justify-between items-start">
+              <div className="flex items-center gap-2">
+                <img
+                  src={`https://countryflagsapi.com/svg/${props.country}`}
+                  alt={props.country}
+                  className="w-8"
+                />
+                <h2 className="m-0">{memoFullname}</h2>
+              </div>
+              <button
+                type="button"
+                disabled={memoPlace === 1}
+                className="flex items-center justify-center px-3 py-2 bg-stone-300 disabled:opacity-25"
+                onClick={onOvertake}
+              >
+                Overtake
+              </button>
+            </div>
+            <p>{props.team}</p>
+            <p>{props.code}</p>
+          </div>
         </div>
-        <p>{props.team}</p>
-        <p>{props.code}</p>
-      </div>
-    </div>
+      )}
+    </Draggable>
   );
 }

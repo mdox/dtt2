@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
-import { DriverCard } from "../components/DriverCard";
 import { DriverCardContainer } from "../components/DriverCardContainer";
 import { Driver } from "../lib/types";
 
@@ -41,16 +40,11 @@ export function Drivers() {
         <Link to="/">Back to Home please.</Link>
       </p>
 
-      <DriverCardContainer>
-        {memoDrivers.map((driver) => (
-          <DriverCard
-            key={driver.id}
-            {...driver}
-            onOvertake={onOvertake}
-            onTakePlace={onTakePlace}
-          />
-        ))}
-      </DriverCardContainer>
+      <DriverCardContainer
+        items={memoDrivers}
+        onTakePlace={onTakePlace}
+        onOvertake={onOvertake}
+      />
     </div>
   );
 }

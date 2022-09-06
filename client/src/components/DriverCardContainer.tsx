@@ -1,15 +1,57 @@
-import { PropsWithChildren } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { useMemo } from "react";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import { Driver } from "../lib/types";
+import { DriverCard } from "./DriverCard";
 
-interface DriverCardContainerProps {}
+interface DriverCardContainerProps {
+  items: Driver[];
+  onTakePlace(takerDriverId: number, holderDriverId: number): void;
+  onOvertake(driverId: number): void;
+}
 
-export function DriverCardContainer(
-  props: DriverCardContainerProps & PropsWithChildren
-) {
+export function DriverCardContainer(props: DriverCardContainerProps) {
+  // Memos
+  const memoItems = useMemo(() => {
+    return [...props.items];
+  }, [props.items]);
+
+  // Events
+  function onDragEnd(result: DropResult) {
+    if (!result.destination) return;
+
+    const oldIndex = result.source.index;
+    const newIndex = result.destination.index;
+
+    const takerDriverId = memoItems[oldIndex].id;
+    const holderDriverId = memoItems[newIndex].id;
+
+    memoItems.splice(newIndex, 0, memoItems.splice(oldIndex, 1)[0]);
+
+    props.onTakePlace(takerDriverId, holderDriverId);
+  }
+
+  // Renders
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className="flex flex-col gap-2">{props.children}</div>
-    </DndProvider>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="driver-card-container">
+        {(provided) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            className="flex flex-col"
+          >
+            {memoItems.map((driver, index) => (
+              <DriverCard
+                key={driver.id}
+                index={index}
+                {...driver}
+                onOvertake={props.onOvertake}
+              />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 }

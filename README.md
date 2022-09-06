@@ -66,5 +66,5 @@ npm run db:stop
 - [x] Flags
 - [x] Multiple overtake, Drag & Drop
 - [x] PostgreSQL in Docker
-- [ ] Animations
+- [x] Animations
 - [ ] Backend Tests in Jest
