@@ -9,9 +9,6 @@ const config: Knex.Config = {
     user: "postgres",
     password: "postgres",
   },
-  seeds: {
-    directory: "./seeds",
-  },
 };
 
 export default config;

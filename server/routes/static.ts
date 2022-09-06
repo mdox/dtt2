@@ -5,7 +5,7 @@ const staticRoutes = Router();
 
 staticRoutes.use(
   "/static",
-  express.static(path.join(process.cwd(), "../resources/static"))
+  express.static(path.join(process.cwd(), "resources/static"))
 );
 
 export default staticRoutes;
