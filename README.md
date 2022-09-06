@@ -5,6 +5,16 @@
 - docker
 - docker-compose
 
+# Main Utilites
+
+- vite (for frontend)
+- jest (for testing)
+- knex (for backend, handling the database)
+
+# Final Model
+
+Web Client <-> Server -> Controller -> Service -> DAO -> Database
+
 # Usage
 
 Ports:
