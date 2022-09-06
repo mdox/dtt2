@@ -2,11 +2,13 @@
   "name": "server",
   "version": "1.0.0",
   "scripts": {
-    "dev": "nodemon ./index.ts",
-    "build": "tsc",
-    "serve": "node ./dist/index.js",
-    "db:migrate": "knex migrate:latest",
-    "db:seed": "knex seed:run"
+    "dev": "NODE_ENV=development nodemon ./index.ts",
+    "build": "NODE_ENV=production tsc",
+    "serve": "NODE_ENV=production node ./dist/index.js",
+    "db:init:production": "NODE_ENV=production ts-node init-database.ts",
+    "db:init:development": "NODE_ENV=development ts-node init-database.ts",
+    "db:init:test": "NODE_ENV=test ts-node init-database.ts",
+    "db:init:all": "npm run db:init:production && npm run db:init:development && npm run db:init:test"
   },
   "dependencies": {
     "express": "^4.18.1",

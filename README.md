@@ -17,9 +17,8 @@ Ports:
 
 ```sh
 npm run init
-npm run db:start          # For Part 2
-npm run server:db:migrate # For Part 2
-npm run server:db:seed    # For Part 2
+npm run db:start           # For Part 2
+npm run server:db:init:all # For Part 2
 ```
 
 ## Production
