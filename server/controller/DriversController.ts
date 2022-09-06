@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { DriverClientPost } from "../lib/types";
 import DriversService from "../service/DriversService";
 
 async function sendDrivers(res: Response, code: number = 200) {
@@ -9,12 +10,22 @@ async function sendDrivers(res: Response, code: number = 200) {
     return;
   }
 
-  drivers.forEach((driver) => {
-    driver.imgUrl = driver.img_url;
-    delete driver.img_url;
-  });
+  const driversForClient: DriverClientPost[] = drivers.map(
+    ({ id, code, country, firstname, lastname, place, team, img_url }) => {
+      return {
+        id,
+        code,
+        country,
+        firstname,
+        lastname,
+        place,
+        team,
+        imgUrl: img_url,
+      };
+    }
+  );
 
-  res.status(code).json(drivers);
+  res.status(code).json(driversForClient);
 }
 
 class DriversController {

@@ -1,4 +1,5 @@
 import DriverDAO from "../dao/DriverDAO";
+import { DriverServerPost } from "../lib/types";
 
 class DriversService {
   async createDriver(data: {
@@ -13,24 +14,24 @@ class DriversService {
     return await DriverDAO.createDriver(data);
   }
 
-  async updateDriver<T = any>(driverId: number, newData: T) {
+  async updateDriver(driverId: number, newData: Partial<DriverServerPost>) {
     return await DriverDAO.updateDriver(driverId, newData);
   }
 
-  async getDrivers<T = any>() {
-    return await DriverDAO.getDrivers<T>();
+  async getDrivers() {
+    return await DriverDAO.getDrivers();
   }
 
-  async getDriverByID<T = any>(driverId: number) {
-    return await DriverDAO.getDriverByID<T>(driverId);
+  async getDriverByID(driverId: number) {
+    return await DriverDAO.getDriverByID(driverId);
   }
 
-  async getDriverPlace<T = any>(place: number) {
-    return await DriverDAO.getDriverByPlace<T>(place);
+  async getDriverPlace(place: number) {
+    return await DriverDAO.getDriverByPlace(place);
   }
 
-  async getDriversByPlaceRanges<T = any>(range_a: number, range_b: number) {
-    return await DriverDAO.getDriversByPlaceRanges<T>(range_a, range_b);
+  async getDriversByPlaceRanges(range_a: number, range_b: number) {
+    return await DriverDAO.getDriversByPlaceRanges(range_a, range_b);
   }
 }
 
