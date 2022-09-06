@@ -42,6 +42,12 @@ npm run dev
 npm run db:stop
 ```
 
+## Test
+
+```sh
+npm run server:test
+```
+
 # TODO
 
 ## Part 1
@@ -66,4 +72,4 @@ npm run db:stop
 - [x] Multiple overtake, Drag & Drop
 - [x] PostgreSQL in Docker
 - [x] Animations
-- [ ] Backend Tests in Jest
+- [x] Backend Tests in Jest

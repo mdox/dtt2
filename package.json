@@ -10,6 +10,7 @@
     "server:dev": "npm --prefix server run dev",
     "client:serve": "npm --prefix client run serve",
     "server:serve": "npm --prefix server run serve",
+    "server:test": "npm --prefix server run test",
     "server:db:init:all": "npm --prefix server run db:init:all",
     "db:start": "cd postgres && docker-compose up --build -d",
     "db:stop": "cd postgres && docker-compose down",
